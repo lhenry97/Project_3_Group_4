@@ -1,3 +1,237 @@
+
+let myLineChart;
+let myPolarChart;
+let myDoughnutChart;
+
+// Build the metadata panel
+function buildMetadata(country) {
+  d3.csv("Datasets/contribution-to-temp-rise-by-gas.csv").then((data) => {
+    let metadata = data.map(d => ({
+      Entity: d.Entity,
+      Year: d.Year,
+      surface_temp_from_n2o: d.surface_temp_from_n2o,
+      surface_temp_from_ch4: d.surface_temp_from_ch4,
+      surface_temp_from_co2: d.surface_temp_from_co2,
+    }));
+
+    let filteredData = metadata.filter(sampleObj => sampleObj.Entity === country);
+    if (filteredData.length === 0) {
+      console.error('No metadata found for Country:', country);
+      return;
+    }
+
+    let panel = d3.select("#metadata-panel");
+    panel.html("");
+    for (let [key, value] of Object.entries(filteredData[0])) {
+      panel.append("h6").text(`${key.toUpperCase()}: ${value}`);
+    }
+  }).catch(error => console.error('Error loading metadata:', error));
+}
+
+// Plot line chart of selected emission data with time
+function plotLineChart(country) {
+  d3.csv("Datasets/contribution-to-temp-rise-by-gas.csv").then((data) => {
+    let filteredData = data.filter(d => d.Entity === country);
+    if (filteredData.length === 0) {
+      console.error('No data found for Country:', country);
+      return;
+    }
+
+    const labels = filteredData.map(d => d.Year);
+    const dataCO2 = filteredData.map(d => d.surface_temp_from_co2);
+    const dataCH4 = filteredData.map(d => d.surface_temp_from_ch4);
+    const dataN2O = filteredData.map(d => d.surface_temp_from_n2o);
+
+    // Remove any existing chart instance
+    if (myLineChart) {
+      myLineChart.destroy();
+    }
+
+    // Create new Chart.js line chart
+    myLineChart = new Chart(document.getElementById('line-chart'), {
+      type: 'line',
+      data: {
+        labels: labels,
+        datasets: [
+          {
+            label: 'CO₂',
+            data: dataCO2,
+            borderColor: 'rgba(255, 99, 132, 1)',
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            fill: false
+          },
+          {
+            label: 'CH₄',
+            data: dataCH4,
+            borderColor: 'rgba(54, 162, 235, 1)',
+            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+            fill: false
+          },
+          {
+            label: 'N₂O',
+            data: dataN2O,
+            borderColor: 'rgba(75, 192, 192, 1)',
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            fill: false
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'top',
+          },
+          title: {
+            display: true,
+            text: `Temperature Rise Over Time for ${country}`
+          }
+        },
+        scales: {
+          x: {
+            title: {
+              display: true,
+              text: 'Year'
+            }
+          },
+          y: {
+            title: {
+              display: true,
+              text: 'Temperature Rise (°C)'
+            },
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  }).catch(error => console.error('Error loading data for plot:', error));
+}
+
+// Plot polar area chart for specific countries
+function plotPolarChart() {
+  d3.csv("Datasets/contribution-to-temp-rise-by-gas.csv").then((data) => {
+    const targetCountries = ["Australia", "United States", "China", "Russia", "South America"];
+    
+    // Aggregate data for selected countries
+    let countryTotals = targetCountries.reduce((acc, country) => {
+      const countryData = data.filter(d => d.Entity === country);
+      const totalCO2 = countryData.reduce((sum, d) => sum + parseFloat(d.surface_temp_from_co2 || 0), 0);
+      acc[country] = totalCO2;
+      return acc;
+    }, {});
+
+    // Prepare data for the polar chart
+    let labels = Object.keys(countryTotals);
+    let dataValues = Object.values(countryTotals);
+
+    // Remove any existing chart instance
+    if (myPolarChart) {
+      myPolarChart.destroy();
+    }
+
+    // Create new Chart.js polar area chart
+    myPolarChart = new Chart(document.getElementById('polar-chart'), {
+      type: 'polarArea',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'CO₂ Emissions Contribution',
+          data: dataValues,
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)'
+          ],
+          borderColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)'
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'top',
+          },
+          title: {
+            display: true,
+            text: 'CO₂ Emissions Contribution by Selected Countries'
+          }
+        }
+      }
+    });
+  }).catch(error => console.error('Error loading data for polar chart:', error));
+}
+
+// Plot doughnut chart for the world
+function plotDoughnutChart() {
+  d3.csv("Datasets/contribution-to-temp-rise-by-gas.csv").then((data) => {
+    let worldData = data.filter(d => d.Entity === "World");
+
+    if (worldData.length === 0) {
+      console.error('No data found for World');
+      return;
+    }
+
+    // Prepare data for the doughnut chart
+    let totalCO2 = worldData.reduce((sum, d) => sum + parseFloat(d.surface_temp_from_co2 || 0), 0);
+    let totalCH4 = worldData.reduce((sum, d) => sum + parseFloat(d.surface_temp_from_ch4 || 0), 0);
+    let totalN2O = worldData.reduce((sum, d) => sum + parseFloat(d.surface_temp_from_n2o || 0), 0);
+
+    let labels = ['CO₂', 'CH₄', 'N₂O'];
+    let dataValues = [totalCO2, totalCH4, totalN2O];
+
+    // Remove any existing chart instance
+    if (myDoughnutChart) {
+      myDoughnutChart.destroy();
+    }
+
+    // Create new Chart.js doughnut chart
+    myDoughnutChart = new Chart(document.getElementById('doughnut-chart'), {
+      type: 'doughnut',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'Global Emissions Contribution',
+          data: dataValues,
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(75, 192, 192, 0.2)'
+          ],
+          borderColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(75, 192, 192, 1)'
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'top',
+          },
+          title: {
+            display: true,
+            text: 'Global Emissions Contribution (CO₂, CH₄, N₂O)'
+          }
+        }
+      }
+    });
+  }).catch(error => console.error('Error loading data for doughnut chart:', error));
+}
+
+
+
 // Build the metadata panel
 function buildMetadata(country) {
   d3.csv("Datasets/finalData.csv").then((data) => {
@@ -91,19 +325,36 @@ d3.select("#category-select").on("change", function() {
   optionChanged(selectedCountry);
 });
 
-// Function to run on page load
 function init() {
-  d3.csv("Datasets/finalData.csv").then((data) => {
-    let countries = Array.from(new Set(data.map(d => d.country)));
+  // Load the first dataset
+  d3.csv("Datasets/finalData.csv").then((data1) => {
+    let countries1 = Array.from(new Set(data1.map(d => d.country)));
     let dropdown = d3.select("#category-select");
-    countries.forEach(country => {
+
+    // Populate dropdown with options
+    countries1.forEach(country => {
       dropdown.append("option").text(country).property("value", country);
     });
-    let firstCountry = countries[0];
-    buildMetadata(firstCountry);
-    plotLineGraph(firstCountry);
+
+    // Select the first country to initialize
+    let firstCountry1 = countries1[0];
+    buildMetadata(firstCountry1);
+    plotLineGraph(firstCountry1);
+
+    // Load the second dataset
+    return d3.csv("Datasets/contribution-to-temp-rise-by-gas.csv");
+
+  }).then((data2) => {
+    let countries2 = Array.from(new Set(data2.map(d => d.Entity)));
+
+    // Initialize with the first entry from the second dataset
+    let firstCountry2 = countries2[0];
+    plotLineChart(firstCountry2);
+    plotPolarChart();
+    plotDoughnutChart();
+
   }).catch(error => console.error('Error initializing dashboard:', error));
 }
 
-// Initialise the dashboard
+// Call the init function on page load
 init();
