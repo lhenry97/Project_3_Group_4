@@ -48,7 +48,7 @@ function plotLineChart(country) {
     }
 
     // Create new Chart.js line chart
-    myLineChart = new Chart(document.getElementById('line-chart'), {
+    myLineChart = new Chart(document.getElementById('line-chart-2'), {
       type: 'line',
       data: {
         labels: labels,
