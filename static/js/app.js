@@ -17,7 +17,7 @@ function getCircleSize(co2) {
 }
 
 // Load country data from CSV and plot circles
-d3.csv("Datasets/Country-lat-and-long.csv").then(function(data) {
+d3.csv("https://raw.githubusercontent.com/lhenry97/Project_3_Group_4/main/Datasets/Country-lat-and-long.csv").then(function(data) {
     data.forEach(function(country) {
         L.circle([country.latitude, country.longitude], {
             color: 'red',
@@ -34,7 +34,7 @@ d3.csv("Datasets/Country-lat-and-long.csv").then(function(data) {
 
 // Build the metadata panel using temperature data
 function buildMetadata(country) {
-  d3.csv("Datasets/contribution-to-temp-rise-by-gas.csv").then((data) => {
+  d3.csv("https://raw.githubusercontent.com/lhenry97/Project_3_Group_4/main/Datasets/contribution-to-temp-rise-by-gas.csv").then((data) => {
     let metadata = data.map(d => ({
       Entity: d.Entity,
       Year: d.Year,
@@ -59,7 +59,7 @@ function buildMetadata(country) {
 
 // Plot line chart of selected emission data with time
 function plotLineChart(country) {
-  d3.csv("Datasets/contribution-to-temp-rise-by-gas.csv").then((data) => {
+  d3.csv("https://raw.githubusercontent.com/lhenry97/Project_3_Group_4/main/Datasets/contribution-to-temp-rise-by-gas.csv").then((data) => {
     let filteredData = data.filter(d => d.Entity === country);
     if (filteredData.length === 0) {
       console.error('No data found for Country:', country);
@@ -144,7 +144,7 @@ function plotLineChart(country) {
 
 // Plot polar area chart for specific countries
 function plotPolarChart() {
-  d3.csv("Datasets/contribution-to-temp-rise-by-gas.csv").then((data) => {
+  d3.csv("https://raw.githubusercontent.com/lhenry97/Project_3_Group_4/main/Datasets/contribution-to-temp-rise-by-gas.csv").then((data) => {
     const targetCountries = ["Australia", "United States", "China", "Russia", "South America"];
     
     // Aggregate data for selected countries
@@ -212,7 +212,7 @@ function plotPolarChart() {
 
 // Plot doughnut chart for the world
 function plotDoughnutChart() {
-  d3.csv("Datasets/contribution-to-temp-rise-by-gas.csv").then((data) => {
+  d3.csv("https://raw.githubusercontent.com/lhenry97/Project_3_Group_4/main/Datasets/contribution-to-temp-rise-by-gas.csv").then((data) => {
     let worldData = data.filter(d => d.Entity === "World");
 
     if (worldData.length === 0) {
@@ -275,7 +275,7 @@ function plotDoughnutChart() {
 
 // Build the metadata panel from finalData csv
 function buildMetadata(country) {
-  d3.csv("Datasets/finalData.csv").then((data) => {
+  d3.csv("https://raw.githubusercontent.com/lhenry97/Project_3_Group_4/main/Datasets/finaldata.csv").then((data) => {
     let metadata = data.map(d => ({
       country: d.country,
       year: d.year,
@@ -318,7 +318,7 @@ function buildMetadata(country) {
 
 // Plot line graph of selected emission data with time
 function plotLineGraph(country) {
-  d3.csv("Datasets/finalData.csv").then((data) => {
+  d3.csv("https://raw.githubusercontent.com/lhenry97/Project_3_Group_4/main/Datasets/finaldata.csv").then((data) => {
     let filteredData = data.filter(d => d.country === country);
     if (filteredData.length === 0) {
       console.error('No data found for Country:', country);
@@ -356,7 +356,7 @@ function plotLineGraph(country) {
 }
 
 function updateCountrySummary(country) {
-  d3.csv("Datasets/finalData.csv").then((data) => {
+  d3.csv("https://raw.githubusercontent.com/lhenry97/Project_3_Group_4/main/Datasets/finaldata.csv").then((data) => {
     let filteredData = data.filter(d => d.country === country);
     if (filteredData.length === 0) {
       console.error('No data found for Country:', country);
@@ -386,7 +386,12 @@ d3.select("#category-select").on("change", function() {
 
 function init() {
   // Load the first dataset
-  d3.csv("Datasets/finalData.csv").then((data1) => {
+  d3.csv("https://raw.githubusercontent.com/lhenry97/Project_3_Group_4/main/Datasets/finaldata.csv").then((data1) => {
+    if (!data1 || data1.length === 0) {
+      console.error('No data found in the CSV file.');
+      return;
+    }
+
     let countries1 = Array.from(new Set(data1.map(d => d.country)));
     let dropdown = d3.select("#category-select");
 
