@@ -15,8 +15,13 @@
     #doughnut-chart {
       height: 200px;
     }
+
     #map {
       height: 300px;
+      width: 100%;
+    }
+    .form-select {
+      white-space: normal;
       width: 100%;
     }
   </style>
@@ -38,38 +43,50 @@
         <div id="map"></div>
       </div>
     </div>
-    <div class="row">
+    <div class="row mt-4">
       <div class="col-md-12">
         <h2 class="text-center">Emissions Overall</h2>
       </div>
     </div>
-    <div class="row">
-      <div class="col-md-6">
+    <div class="row mt-4">
+      <div class="col-md-4">
         <canvas id="polar-chart"></canvas>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-4">
         <canvas id="doughnut-chart"></canvas>
       </div>
+      <div class="col-md-4">
+        <div class="card card-body bg-light">
+          <label for="data-select">Select CO2 Data Option:</label>
+          <select id="data-select" class="form-select" onchange="updateResults()">
+            <option value="total">Top 5 Countries by CO2 Emission</option>
+            <option value="perCapita">Top 5 Countries by CO2 per Capita (tonnes per person)</option>
+            <option value="tempSource">Highest Temperature Change by CO2 Source</option>
+            <option value="tempGas">Highest Temperature Change by Greenhouse Gas Emissions</option>
+          </select>
+
+          <ul id="results"></ul>
+        </div>
+      </div>
     </div>
-    <div class="row">
+    <div class="row mt-4">
       <div class="col-md-12">
         <h2 class="text-center">Emissions by Country</h2>
       </div>
     </div>
-    <div class="row">
+    <div class="row mt-4">
       <div class="col-md-4">
         <div class="card card-body bg-light">
           <h6>Country:</h6>
           <select id="category-select" onchange="optionChanged(this.value)"></select>
         </div>
-        <div class="card card-body bg-light">
-          <h6>Country Emission Information:</h6>
+        <div class="card card-body bg-light mt-2">
           <div id="country-summary"></div>
         </div>
       </div>
       <div class="col-md-8">
         <div class="row">
-          <div class ="col-md-12">
+          <div class="col-md-12">
             <div id="line-chart"></div>
           </div>
           <div class="col-md-12">
