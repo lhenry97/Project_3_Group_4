@@ -3,6 +3,35 @@ let myLineChart;
 let myPolarChart;
 let myDoughnutChart;
 
+// Initialize the map and set its view to a default location and zoom level
+var map = L.map('map').setView([20, 0], 2);
+
+// Add a tile layer to the map (using OpenStreetMap tiles)
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+}).addTo(map);
+
+// Function to determine circle size based on CO2 emission values
+function getCircleSize(co2) {
+    return co2 * 500 / 1000;  // Adjust this factor to scale the circles as needed
+}
+
+// Load country data from CSV and plot circles
+d3.csv("Datasets/Country-lat-and-long.csv").then(function(data) {
+    data.forEach(function(country) {
+        L.circle([country.latitude, country.longitude], {
+            color: 'red',
+            fillColor: '#f03',
+            fillOpacity: 0.5,
+            radius: getCircleSize(500 * country.co2) // Circle size based on CO2
+        }).addTo(map)
+        .bindPopup('<b>' + country.country + '</b><br>CO2: ' + country.co2);
+    });
+}).catch(function(error) {
+    console.error('Error loading CSV data:', error);
+});
+
+
 // Build the metadata panel
 function buildMetadata(country) {
   d3.csv("Datasets/contribution-to-temp-rise-by-gas.csv").then((data) => {
@@ -46,6 +75,9 @@ function plotLineChart(country) {
     if (myLineChart) {
       myLineChart.destroy();
     }
+    //Set height and width of line-chart-2
+    const ctx = document.getElementById('line-chart-2').getContext('2d');
+    ctx.canvas.parentNode.style.height = '250px'; // Set your desired height
 
     // Create new Chart.js line chart
     myLineChart = new Chart(document.getElementById('line-chart-2'), {
@@ -78,6 +110,7 @@ function plotLineChart(country) {
       },
       options: {
         responsive: true,
+        maintainAspectRatio: false, // To allow custom dimensions
         plugins: {
           legend: {
             position: 'top',
@@ -99,7 +132,9 @@ function plotLineChart(country) {
               display: true,
               text: 'Temperature Rise (°C)'
             },
-            beginAtZero: true
+            beginAtZero: true,
+            min: -0.01,
+            max: 0.28
           }
         }
       }
@@ -128,6 +163,10 @@ function plotPolarChart() {
     if (myPolarChart) {
       myPolarChart.destroy();
     }
+    
+    //Set height and width of polar-chart
+    const ctx = document.getElementById('polar-chart').getContext('2d');
+    ctx.canvas.parentNode.style.height = '300px'; // Set your desired height
 
     // Create new Chart.js polar area chart
     myPolarChart = new Chart(document.getElementById('polar-chart'), {
@@ -156,6 +195,7 @@ function plotPolarChart() {
       },
       options: {
         responsive: true,
+        maintainAspectRatio: false, // To allow custom dimensions
         plugins: {
           legend: {
             position: 'top',
@@ -216,6 +256,7 @@ function plotDoughnutChart() {
       },
       options: {
         responsive: true,
+        maintainAspectRatio: false, // To allow custom dimensions
         plugins: {
           legend: {
             position: 'top',
@@ -306,17 +347,35 @@ function plotLineGraph(country) {
       title: `Emissions Over Time for ${country} Per Capita`,
       xaxis: { title: "Year" },
       yaxis: { title: "Emissions" },
-      showlegend: true
+      showlegend: true,
+      height: 300
     };
 
     Plotly.newPlot('line-chart', traces, layout);
   }).catch(error => console.error('Error loading data for plot:', error));
 }
 
+function updateCountrySummary(country) {
+  d3.csv("Datasets/finalData.csv").then((data) => {
+    let filteredData = data.filter(d => d.country === country);
+    if (filteredData.length === 0) {
+      console.error('No data found for Country:', country);
+      return;
+    }
+    
+    let summary = `
+    <p><strong>Annual CO2 Emissions as of 2020:</strong> ${filteredData.reduce((sum, d) => sum + parseFloat(d.co2 || 0), 0).toFixed(2)} Million Tons</p>
+`;
+document.getElementById('country-summary').innerHTML = summary;
+}).catch(error => console.error('Error loading data for summary:', error));
+}
+
 // Function for handling dropdown change
 function optionChanged(newCountry) {
   buildMetadata(newCountry);
   plotLineGraph(newCountry);
+  plotLineChart(newCountry);
+  updateCountrySummary(newCountry);
 }
 
 // Event listener for dropdown change
