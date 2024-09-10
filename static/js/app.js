@@ -3,7 +3,7 @@ let myLineChart;
 let myPolarChart;
 let myDoughnutChart;
 
-// Initialize the map and set its view to a default location and zoom level
+// Initialize world map and set its view to a default location and zoom level
 var map = L.map('map').setView([20, 0], 2);
 
 // Add a tile layer to the map (using OpenStreetMap tiles)
@@ -32,7 +32,7 @@ d3.csv("Datasets/Country-lat-and-long.csv").then(function(data) {
 });
 
 
-// Build the metadata panel
+// Build the metadata panel using temperature data
 function buildMetadata(country) {
   d3.csv("Datasets/contribution-to-temp-rise-by-gas.csv").then((data) => {
     let metadata = data.map(d => ({
@@ -79,7 +79,7 @@ function plotLineChart(country) {
     const ctx = document.getElementById('line-chart-2').getContext('2d');
     ctx.canvas.parentNode.style.height = '250px'; // Set your desired height
 
-    // Create new Chart.js line chart
+    // Create line chart using Chart.js
     myLineChart = new Chart(document.getElementById('line-chart-2'), {
       type: 'line',
       data: {
@@ -133,8 +133,8 @@ function plotLineChart(country) {
               text: 'Temperature Rise (°C)'
             },
             beginAtZero: true,
-            min: -0.01,
-            max: 0.28
+            min: -0.01, // defining minium value for y axis
+            max: 0.28 //defining maximum value for y axis
           }
         }
       }
@@ -166,7 +166,7 @@ function plotPolarChart() {
     
     //Set height and width of polar-chart
     const ctx = document.getElementById('polar-chart').getContext('2d');
-    ctx.canvas.parentNode.style.height = '300px'; // Set your desired height
+    ctx.canvas.parentNode.style.height = '300px'; // Set desired height
 
     // Create new Chart.js polar area chart
     myPolarChart = new Chart(document.getElementById('polar-chart'), {
@@ -273,7 +273,7 @@ function plotDoughnutChart() {
 
 
 
-// Build the metadata panel
+// Build the metadata panel from finalData csv
 function buildMetadata(country) {
   d3.csv("Datasets/finalData.csv").then((data) => {
     let metadata = data.map(d => ({
@@ -399,16 +399,8 @@ function init() {
     let firstCountry1 = countries1[0];
     buildMetadata(firstCountry1);
     plotLineGraph(firstCountry1);
-
-    // Load the second dataset
-    return d3.csv("Datasets/contribution-to-temp-rise-by-gas.csv");
-
-  }).then((data2) => {
-    let countries2 = Array.from(new Set(data2.map(d => d.Entity)));
-
-    // Initialize with the first entry from the second dataset
-    let firstCountry2 = countries2[0];
-    plotLineChart(firstCountry2);
+    plotLineChart(firstCountry1);
+    updateCountrySummary(firstCountry1);
     plotPolarChart();
     plotDoughnutChart();
 
