@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CO2 and Temperature Data Analysis</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        select {
+            font-size: 16px;
+            padding: 5px;
+            margin-right: 10px;
+        }
+
+        h2 {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>CO2 and Temperature Data Analysis</h1>
+    
+    <!-- Dropdown for CO2 Data Option -->
+    <div>
+        <label for="data-select">Select CO2 Data Option:</label>
+        <select id="data-select">
+            <option value="total">Top 5 Countries by CO2 Emission</option>
+            <option value="perCapita">Top 5 Countries by CO2 per Capita (tonnes per person)</option>
+            <option value="tempSource">Highest Temperature Change by CO2 Source</option>
+            <option value="tempGas">Highest Temperature Change by Greenhouse Gas Emissions</option>
+        </select>
+    </div>
+
+    <!-- Results Sections -->
+    <div>
+        <h2 id="result-title">Top 5 Countries by CO2 Emission</h2>
+        <ul id="results"></ul>
+    </div>
+
+    <script src="co2_analysis_dd.js"></script>
+</body>
+</html>
