@@ -41,7 +41,7 @@ The underlying data source(s)
 
 With the complexity of the data MongoDB was used to warehouse the data.
 
-!(Mongo.png)
+![Screenshot 2024-09-11 191239](https://github.com/user-attachments/assets/8164a8dd-baa8-4507-824a-e2d992edfcf1)
 
 **Licensing:**
 
