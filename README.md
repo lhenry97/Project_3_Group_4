@@ -40,7 +40,8 @@ The underlying data source(s)
 **Data Warehousing**
 
 With the complexity of the data MongoDB was used to warehouse the data.
-(mongo.png)
+
+!(Mongo.png)
 
 **Licensing:**
 
