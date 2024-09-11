@@ -12,11 +12,13 @@ This dashboard is specifically designed for key decision makers who have a major
 
 **How to Use:**
 The location of the dashboard is: https://lhenry97.github.io/Project_3_Group_4/
+
 The first half of the dashboard provides summary of emissions data globally. 
 The following data is present:
   - Visualize Co2 emission contribution by selected Countries
   - Global emission contribution by nitrous oxide -N2O,  Methane - CH4 and Carbon Dioxide- CO2 emissions
   - Dropdown list to view quick summary of analysis statistics: Top 5 countries by Co2 emission, Top 5 countries by Co2 per capita, Highest temp change by Co2 source, Highest temp change by GHG emission
+
 The second half of the dashboard provides data on individual countries with the user being able to select 1 of the 32 countries data provided.
 The following data is present:
   - Dropdown list allowing the user to select the desired country.
