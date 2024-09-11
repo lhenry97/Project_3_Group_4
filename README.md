@@ -37,6 +37,11 @@ The underlying data source(s)
   - Emission Database for Global Atmospheric Research (EDGAR)
   - International Energy Agency (IEA)
 
+**Data Warehousing**
+
+With the complexity of the data MongoDB was used to warehouse the data.
+(mongo.png)
+
 **Licensing:**
 
 As stated on [the OWID GitHub](https://github.com/owid/co2-data/tree/master?tab=readme-ov-file) "All visualizations, data, and code produced by Our World in Data are completely open access under the [Creative Commons BY license](https://creativecommons.org/licenses/by/4.0/). You have the permission to use, distribute, and reproduce these in any medium, provided the source and authors are credited."
@@ -100,7 +105,6 @@ This project serves as a powerful tool for governments and private sectors alike
    **For Private Sectors:**
  - **Investing in Renewable Energy:** By seeing how fossil fuels like coal, oil, and gas contribute to national emissions, companies can make informed decisions about transitioning to renewable energy sources, such as solar or wind power, to reduce their carbon footprint.
 
-### Data Warehousing
 
 
 
