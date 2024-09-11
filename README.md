@@ -1,23 +1,27 @@
 # Project_3_Group_4
 
-## Project Proposal: Visualizing Global Carbon Emissions Using Our World In Data: CO₂ and Greenhouse Gas Emissions
+## Visualizing Global Carbon Emissions Using Our World In Data: CO₂ and Greenhouse Gas Emissions
 
 **Project Title:**
 
 Visualizing Global Carbon Emissions Using Our World In Data: CO₂ and Greenhouse Gas Emissions
 
-**Goal of the Project:**
-The aim of our project is to uncover patterns with carbon and gas emissions by country. We'll examine relationships between country, population, temperature over the course of a decade, and other related relationships derived from the data.
+**Purpose of the Project:**
+To produce a dashboard that is a clear, high level overview of global carbon emissions
+This dashboard is specifically designed for key decision makers who have a major influence to carbon emissions where a reduction could be made. These decision makers include Government officials,Corporate leaders in major carbon usage companies and Researchers especially those working on environmental science.
 
-**Desired Outcome:**
-
-The final outcome will be a web-based Global Emission dashboard that offers users the ability to:
-
-  - Explore CO2 emissions per capita across different countries and time periods.
+**How to Use:**
+The location of the dashboard is: https://lhenry97.github.io/Project_3_Group_4/
+The first half of the dashboard provides summary of emissions data globally. 
+The following data is present:
   - Visualize Co2 emission contribution by selected Countries
   - Global emission contribution by nitrous oxide -N2O,  Methane - CH4 and Carbon Dioxide- CO2 emissions
   - Dropdown list to view quick summary of analysis statistics: Top 5 countries by Co2 emission, Top 5 countries by Co2 per capita, Highest temp change by Co2 source, Highest temp change by GHG emission
-
+The second half of the dashboard provides data on individual countries with the user being able to select 1 of the 32 countries data provided.
+The following data is present:
+  - Dropdown list allowing the user to select the desired country.
+  - Visialise CO2 emissions per capita across different countries and time periods.
+  - Visualise temperature changes over time based on different sources of emissions.
 
 **Data Sources**
 
