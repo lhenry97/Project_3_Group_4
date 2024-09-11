@@ -100,6 +100,9 @@ This project serves as a powerful tool for governments and private sectors alike
    **For Private Sectors:**
  - **Investing in Renewable Energy:** By seeing how fossil fuels like coal, oil, and gas contribute to national emissions, companies can make informed decisions about transitioning to renewable energy sources, such as solar or wind power, to reduce their carbon footprint.
 
+### Data Warehousing
+
+
 
 
 
