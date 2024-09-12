@@ -556,5 +556,65 @@ document.getElementById('data-select').addEventListener('change', function() {
 // Initial load with default option (Top 5 Countries by CO2 Emission)
 analyzeCO2Data('total');
 
+// Function to compare CO₂ emissions for two countries
+// Fetch CSV data and populate the country dropdowns
+async function fetchData() {
+  const dataUrl = 'https://raw.githubusercontent.com/lhenry97/Project_3_Group_4/main/Datasets/finaldata.csv';
+  const response = await fetch(dataUrl);
+  const data = await response.text();
+  
+  // Parse CSV data
+  const parsedData = d3.csvParse(data);
+
+  // Populate country dropdowns with unique country names
+  const countrySet = new Set(parsedData.map(row => row.country));
+  const countryOptions = Array.from(countrySet);
+
+  const countrySelect1 = document.getElementById("country-select-1");
+  const countrySelect2 = document.getElementById("country-select-2");
+
+  countryOptions.forEach(country => {
+      const option1 = document.createElement("option");
+      const option2 = document.createElement("option");
+      option1.value = country;
+      option1.textContent = country;
+      option2.value = country;
+      option2.textContent = country;
+      countrySelect1.appendChild(option1);
+      countrySelect2.appendChild(option2);
+  });
+}
+
+// Update comparison result based on selected countries
+function updateComparison() {
+  const country1 = document.getElementById("country-select-1").value;
+  const country2 = document.getElementById("country-select-2").value;
+
+  const dataUrl = 'https://raw.githubusercontent.com/lhenry97/Project_3_Group_4/main/Datasets/finaldata.csv';
+
+  d3.csv(dataUrl).then(data => {
+      // Filter data for selected countries
+      const country1Data = data.filter(d => d.country === country1);
+      const country2Data = data.filter(d => d.country === country2);
+
+      // Calculate total CO2 emissions for both countries
+      const totalCO2Country1 = country1Data.reduce((sum, d) => sum + parseFloat(d.co2), 0);
+      const totalCO2Country2 = country2Data.reduce((sum, d) => sum + parseFloat(d.co2), 0);
+
+      // Display comparison result
+      const resultDiv = document.getElementById('comparison-result');
+      resultDiv.innerHTML = `
+          <h5>CO2 Emissions Comparison:</h5>
+          <p>${country1}: Total CO2 Emissions: ${totalCO2Country1.toFixed(2)} tonnes</p>
+          <p>${country2}: Total CO2 Emissions: ${totalCO2Country2.toFixed(2)} tonnes</p>
+      `;
+  });
+}
+
+// Initialize the data and populate dropdowns on page load
+document.addEventListener("DOMContentLoaded", function() {
+  fetchData();
+});
+
 // Call the init function on page load
 init();
