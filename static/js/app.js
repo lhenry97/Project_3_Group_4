@@ -536,19 +536,14 @@ async function analyzeTempGasData() {
 // Handle dropdown change for CO2 and temperature data
 document.getElementById('data-select').addEventListener('change', function() {
   const selectedValue = this.value;
-  const resultTitle = document.getElementById('result-title');
   
   if (selectedValue === 'total') {
-      resultTitle.textContent = 'Top 5 Countries by CO2 Emission (2020-01-01)';
       analyzeCO2Data('total');
   } else if (selectedValue === 'perCapita') {
-      resultTitle.textContent = 'Top 5 Countries by CO2 per Capita (2020-01-01)';
       analyzeCO2Data('perCapita');
   } else if (selectedValue === 'tempSource') {
-      resultTitle.textContent = 'Top CO2 Sources of Emission (2020-01-01)';
       analyzeTempSourceData();
   } else if (selectedValue === 'tempGas') {
-      resultTitle.textContent = 'Highest Temperature Change by Greenhouse Gas Emissions (2020-01-01)';
       analyzeTempGasData();
   }
 });
