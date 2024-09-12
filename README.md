@@ -1,6 +1,14 @@
 # Project_3_Group_4
 
-## Visualizing Global Carbon Emissions Using Our World In Data: CO₂ and Greenhouse Gas Emissions
+**Contributors:**
+ - [Lauren](https://github.com/lhenry97)
+ - [Anthony](https://github.com/anthonytranhoang)
+ - [Riwas](https://github.com/Riwaskarki)
+ - [Khushbu Kothari (Khushi)](https://github.com/dakhushi)
+
+
+## Data Visualisation Track ##
+### Visualizing Global Carbon Emissions Using Our World In Data: CO₂ and Greenhouse Gas Emissions ###
 
 **Project Title:**
 
@@ -113,8 +121,10 @@ This project serves as a powerful tool for governments and private sectors alike
  - **Investing in Renewable Energy:** By seeing how fossil fuels like coal, oil, and gas contribute to national emissions, companies can make informed decisions about transitioning to renewable energy sources, such as solar or wind power, to reduce their carbon footprint.
 
 #### Refferences ####
-[ChatGPT Open AI](https://openai.com/chatgpt/)
+
 [JavaScript Documentation](https://devdocs.io/javascript/)
+
+[ChatGPT Open AI](https://openai.com/chatgpt/)
 
 
 
