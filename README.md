@@ -11,7 +11,9 @@ Visualizing Global Carbon Emissions Using Our World In Data: CO₂ and Greenhous
 To produce a dashboard that is a clear, high level overview of global carbon emissions
 This dashboard is specifically designed for key decision makers who have a major influence to carbon emissions where a reduction could be made. These decision makers include Government officials,Corporate leaders in major carbon usage companies and Researchers especially those working on environmental science.
 
-![image](https://github.com/user-attachments/assets/1434f5f3-c6c3-48de-97bb-cbd91d618550)
+![image](https://github.com/user-attachments/assets/cb3b1730-eb0e-43c4-9176-3067121b8b78)
+![image](https://github.com/user-attachments/assets/dbecc35b-9272-446e-b09f-2bab7d3d0611)
+
 
 **How to Use:**
 The location of the dashboard is: https://lhenry97.github.io/Project_3_Group_4/
@@ -19,6 +21,7 @@ The location of the dashboard is: https://lhenry97.github.io/Project_3_Group_4/
 The first half of the dashboard provides summary of emissions data globally. 
 The following data is present:
   - Visualize Co2 emission contribution by selected Countries
+  - Compare total CO2 emission between two countries
   - Global emission contribution by nitrous oxide -N2O,  Methane - CH4 and Carbon Dioxide- CO2 emissions
   - Dropdown list to view quick summary of analysis statistics: Top 5 countries by Co2 emission, Top 5 countries by Co2 per capita, Highest temp change by Co2 source, Highest temp change by GHG emission
 
