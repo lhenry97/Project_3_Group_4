@@ -7,8 +7,11 @@
 Visualizing Global Carbon Emissions Using Our World In Data: CO₂ and Greenhouse Gas Emissions
 
 **Purpose of the Project:**
+
 To produce a dashboard that is a clear, high level overview of global carbon emissions
 This dashboard is specifically designed for key decision makers who have a major influence to carbon emissions where a reduction could be made. These decision makers include Government officials,Corporate leaders in major carbon usage companies and Researchers especially those working on environmental science.
+
+![image](https://github.com/user-attachments/assets/1434f5f3-c6c3-48de-97bb-cbd91d618550)
 
 **How to Use:**
 The location of the dashboard is: https://lhenry97.github.io/Project_3_Group_4/
