@@ -97,6 +97,17 @@ Below is an overview of the steps we have taken,
   Users are encouraged to verify their legal obligations, especially regarding specific licenses or restrictions imposed by the data sources.
   [CO2 and Greenhouse Gas Emissions dataset](https://github.com/owid/co2-data?tab=readme-ov-file)
 
+**Tools and Libraries Used:**
+1. JavaScript:The core programming language used for implementing the interactive functionalities of the dashboard.
+2. D3.js: (Data-Driven Documents) is a JavaScript library for manipulating documents based on data.
+3. Leaflet.js: A JavaScript library used for interactive maps.
+4. Chart.js: Not covered in the class. It is a simple yet flexible JavaScript library for creating charts.
+Use: It's used for plotting various types of charts:
+Line chart (line chart) for temperature rise over time for different gases.
+Polar chart (polarArea chart) for CO₂ emissions contribution by country.
+Doughnut chart (doughnut chart) for global emissions contributions by gas
+5. HTML
+6. Python, MongoDB, pymongo
 #### Conclusion: ####
 This project provides valuable insights into global CO₂ emissions, enabling users to better understand the sources to climate change.
 
